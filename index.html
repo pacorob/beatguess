@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1020">
+<title>Beat Guess — Music Quiz</title>
+<style>
+:root{--bg:#0f1020;--card:#181a2e;--card2:#222546;--text:#f4f5ff;--muted:#a9adce;--accent:#7c5cff;--accent2:#00d4b8;--good:#22c55e;--bad:#ef4444;--p1:#7c5cff;--p2:#00d4b8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:radial-gradient(1200px 700px at 80% -10%,#2b1e5e 0%,transparent 60%),radial-gradient(900px 600px at -10% 110%,#08454a 0%,transparent 55%),var(--bg);color:var(--text);min-height:100dvh}
+.app{max-width:520px;margin:0 auto;padding:18px 16px calc(24px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.4px}
+.logo span{color:var(--accent2)}
+.pill{background:var(--card);border:1px solid #ffffff14;color:var(--muted);padding:7px 11px;border-radius:999px;font-size:13px;font-weight:600}
+.card{background:linear-gradient(180deg,#1b1d33,#151728);border:1px solid #ffffff12;border-radius:22px;padding:20px;box-shadow:0 18px 50px #0007}
+h1{font-size:27px;line-height:1.15;margin:6px 0 8px}
+h2{font-size:20px;margin:4px 0 10px}
+p{color:var(--muted);line-height:1.5;margin:0 0 16px}
+button{font:inherit;border:0;cursor:pointer}
+.btn{width:100%;padding:15px 16px;border-radius:16px;background:var(--card2);color:var(--text);font-weight:700;font-size:16px;border:1px solid #ffffff14;transition:.15s;text-align:left}
+.btn:active{transform:scale(.985)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),#5a3ee8);box-shadow:0 10px 25px #7c5cff44;text-align:center}
+.btn.teal{background:linear-gradient(135deg,#00b89b,#00907d);box-shadow:0 10px 25px #00d4b844;text-align:center}
+.btn.good{background:#123624;border-color:#22c55e55}
+.btn.bad{background:#3a1720;border-color:#ef444455}
+.btn small{display:block;color:var(--muted);font-weight:600;font-size:12px;margin-top:3px}
+.row{display:grid;gap:10px;margin-top:14px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-weight:700;gap:8px}
+.timer{height:8px;background:#ffffff14;border-radius:99px;overflow:hidden;margin-bottom:16px}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .95s linear}
+.disc{width:118px;height:118px;border-radius:50%;margin:6px auto 14px;background:conic-gradient(from 0deg,#2b2e55,#121426,#2b2e55,#121426,#2b2e55);display:grid;place-items:center;position:relative;animation:spin 4s linear infinite}
+.disc::after{content:"";width:34px;height:34px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px #0f1020}
+.disc.paused{animation-play-state:paused}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
+.center{text-align:center}
+.scorebig{font-size:44px;font-weight:900;margin:8px 0}
+.label{color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+input{width:100%;padding:13px;border-radius:14px;border:1px solid #ffffff18;background:#101223;color:var(--text);font:inherit;margin-bottom:10px}
+input::placeholder{color:#7d81a5}
+.songrow{display:flex;gap:10px;align-items:center;background:var(--card2);padding:10px;border-radius:14px;margin-bottom:8px}
+.songrow b{display:block;font-size:14px}
+.songrow span{color:var(--muted);font-size:12px}
+.songrow .x{margin-left:auto;background:#ffffff10;color:var(--muted);width:30px;height:30px;border-radius:9px}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+.badge{display:inline-block;background:#7c5cff22;color:#c9bcff;padding:4px 9px;border-radius:99px;font-size:12px;font-weight:700;margin-bottom:10px}
+.turn{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.turn div{padding:8px 14px;border-radius:999px;background:var(--card2);color:var(--muted);font-weight:800;font-size:14px;border:1px solid #ffffff12}
+.turn .active1{background:#7c5cff33;color:#d9ceff;border-color:#7c5cff66}
+.turn .active2{background:#00d4b826;color:#b8fff2;border-color:#00d4b866}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:12px}
+.vs .side{background:var(--card2);border-radius:16px;padding:10px;text-align:center;border:1px solid #ffffff12}
+.vs .side b{display:block;font-size:22px}
+.vs .side span{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.vs .mid{font-weight:900;color:var(--muted)}
+.passcard{background:#ffffff08;border:1px dashed #ffffff25;border-radius:16px;padding:16px;text-align:center;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">Beat<span>Guess</span></div><div class="pill" id="bestPill">Best: 0</div></header>
+
+<section id="home" class="card">
+  <div class="badge">iOS-style • No install</div>
+  <h1>Guess the song from a short clip</h1>
+  <p>Play solo, or challenge someone with pass-and-play Quick Match. Both players hear the same clip and choose separately.</p>
+  <button class="btn primary" onclick="startGame('solo')">▶ Solo quick game</button>
+  <div class="row">
+    <button class="btn teal" onclick="startGame('duo')">👥 Two-player Quick Match<span>Pass-and-play on one device</span></button>
+    <button class="btn" onclick="show('library')">🎵 My song pack<span>Add MP3/M4A/WAV files</span></button>
+    <button class="btn" onclick="show('help')">ℹ️ How it works</button>
+  </div>
+</section>
+
+<section id="game" class="card hidden">
+  <div class="top"><div id="modeLabel">Solo</div><div id="roundLabel">Round 1/10</div></div>
+  <div id="soloScoreWrap"><div id="score" style="text-align:right;font-weight:800;margin-bottom:8px">0 pts</div></div>
+  <div id="duoScoreWrap" class="vs hidden">
+    <div class="side"><b id="p1Score">0</b><span id="p1Name">Player 1</span></div>
+    <div class="mid">VS</div>
+    <div class="side"><b id="p2Score">0</b><span id="p2Name">Player 2</span></div>
+  </div>
+  <div class="timer"><i id="bar"></i></div>
+  <div class="turn hidden" id="turnBar"><div id="turn1">P1</div><div id="turn2">P2</div></div>
+  <div class="disc" id="disc"></div>
+  <div class="center"><div class="label" id="promptLabel">Which song is this?</div><h1 id="clipInfo" style="font-size:18px">Listen…</h1></div>
+  <div id="passCard" class="passcard hidden"><b id="passText">Pass the phone to Player 2</b><p style="margin:8px 0 0">Don’t reveal your answer.</p></div>
+  <div class="row" id="choices"></div>
+  <div class="row"><button class="btn" onclick="replay()">🔁 Replay snippet</button><button class="btn" onclick="quitGame()">✖ Quit</button></div>
+</section>
+
+<section id="result" class="card hidden center">
+  <div class="label" id="resultLabel">Round complete</div>
+  <div class="scorebig" id="finalScore">0</div>
+  <p id="resultText"></p>
+  <button class="btn primary" onclick="startGame(mode)">Play again</button>
+  <div class="row"><button class="btn" onclick="show('home')">🏠 Home</button></div>
+</section>
+
+<section id="library" class="card hidden">
+  <h1>My song pack</h1>
+  <p>Add audio files from your device. They stay in this browser; nothing is uploaded. Use only music you have the right to use.</p>
+  <input type="file" id="fileInput" accept="audio/*" multiple>
+  <div id="songList"></div>
+  <div class="row"><button class="btn primary" onclick="startGame('solo')">▶ Solo with my pack</button><button class="btn teal" onclick="startGame('duo')">👥 Quick Match with my pack</button><button class="btn" onclick="show('home')">🏠 Home</button></div>
+  <div class="note">Tip: name files like <b>Artist - Title.mp3</b> and the app fills in the details automatically.</div>
+</section>
+
+<section id="help" class="card hidden">
+  <h1>How it works</h1>
+  <p><b>Solo:</b> each round plays a clip for up to 8 seconds. Faster correct answers earn more points.</p>
+  <p><b>Two-player Quick Match:</b> Player 1 hears the clip and chooses, then the phone is passed to Player 2, who hears the same clip and chooses independently. Correct answers score points; the higher total wins.</p>
+  <p>The built-in pack uses short original melodies, so it is safe to publish and share. For real songs, add audio you own or royalty-free tracks; do not upload copyrighted commercial music to a public website.</p>
+  <button class="btn" onclick="show('home')">🏠 Back</button>
+</section>
+</div>
+
+<script>
+const demo=[
+ {title:"Neon Skyline",artist:"BeatGuess",notes:[[440,.25],[523,.25],[659,.25],[784,.5],[659,.25],[523,.5]]},
+ {title:"Midnight Drive",artist:"BeatGuess",notes:[[392,.3],[466,.3],[587,.3],[466,.3],[392,.6],[349,.6]]},
+ {title:"Summer Circuit",artist:"BeatGuess",notes:[[523,.2],[587,.2],[659,.4],[587,.2],[523,.4],[440,.6]]},
+ {title:"Glass Rain",artist:"BeatGuess",notes:[[659,.2],[587,.2],[523,.2],[494,.4],[440,.4],[392,.7]]},
+ {title:"Pixel Parade",artist:"BeatGuess",notes:[[330,.2],[392,.2],[494,.2],[587,.4],[494,.2],[392,.6]]},
+ {title:"Aurora Rush",artist:"BeatGuess",notes:[[587,.25],[698,.25],[880,.5],[784,.25],[698,.5],[587,.7]]},
+ {title:"Low Orbit",artist:"BeatGuess",notes:[[294,.35],[370,.35],[440,.35],[370,.35],[294,.7],[247,.7]]},
+ {title:"Candy Static",artist:"BeatGuess",notes:[[494,.2],[523,.2],[587,.2],[659,.4],[587,.2],[523,.6]]}
+];
+let custom=[],queue=[],round=0,mode='solo',turn=1,scores={1:0,2:0},soloScore=0,best=+localStorage.getItem('beatguess_best')||0,current=null,audio=null,timer=null,timeLeft=8,locked=false;
+const $=id=>document.getElementById(id);
+$('bestPill').textContent='Best: '+best;
+function show(id){['home','game','result','library','help'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden');if(id!=='game')stopAudio()}
+function pool(){return custom.length?custom:demo}
+function shuffled(a){return [...a].sort(()=>Math.random()-.5)}
+function startGame(m){mode=m||'solo';queue=shuffled(pool()).slice(0,Math.min(10,pool().length));round=0;soloScore=0;scores={1:0,2:0};turn=1;
+ $('soloScoreWrap').classList.toggle('hidden',mode!=='solo');$('duoScoreWrap').classList.toggle('hidden',mode!=='duo');$('turnBar').classList.toggle('hidden',mode!=='duo');
+ $('modeLabel').textContent=mode==='duo'?'Quick Match':'Solo';updateScores();show('game');next()}
+function updateScores(){if(mode==='solo'){$('score').textContent=soloScore+' pts'}else{$('p1Score').textContent=scores[1];$('p2Score').textContent=scores[2];$('turn1').className=turn===1?'active1':'';$('turn2').className=turn===2?'active2':''}}
+function next(){
+ if(round>=queue.length){finish();return}
+ locked=false;timeLeft=8;turn=1;current=queue[round];
+ $('roundLabel').textContent='Round '+(round+1)+'/'+queue.length;
+ $('clipInfo').textContent='Listen…';$('bar').style.width='100%';$('passCard').classList.add('hidden');
+ updateScores();
+ const others=shuffled(pool().filter(s=>s!==current)).slice(0,3);
+ window.choices=[...others,current];
+ renderChoices();
+ play(current);
+ if(timer)clearInterval(timer);
+ timer=setInterval(()=>{timeLeft--;$('bar').style.width=Math.max(0,timeLeft/8*100)+'%';if(timeLeft<=0){clearInterval(timer);handleAnswer(null)}},1000)
+}
+function renderChoices(){
+ $('choices').innerHTML='';
+ window.choices.forEach(o=>{const b=document.createElement('button');b.className='btn';b.innerHTML=`<b>${esc(o.title)}</b><small>${esc(o.artist)}</small>`;b.onclick=()=>handleAnswer(b,o);$('choices').appendChild(b)})
+}
+function play(s){stopAudio();
+ if(s.url){audio=new Audio(s.url);audio.currentTime=Math.min(s.start||0,Math.max(0,(audio.duration||30)-8));audio.play().catch(()=>{})}
+ else playTones(s.notes);
+ $('disc').classList.remove('paused')}
+function replay(){if(current)play(current)}
+function stopAudio(){if(audio){audio.pause();audio=null}if(window.__osc){try{window.__osc.stop()}catch(e){};window.__osc=null}if(timer)clearInterval(timer);$('disc')?.classList.add('paused')}
+function playTones(notes){const ac=new (window.AudioContext||window.webkitAudioContext)();const g=ac.createGain();g.gain.value=.16;g.connect(ac.destination);let t=ac.currentTime+.08;const osc=ac.createOscillator();osc.type='triangle';osc.connect(g);osc.start();window.__osc=osc;notes.forEach(([f,d])=>{osc.frequency.setValueAtTime(f,t);t+=d});osc.stop(t+.2)}
+function handleAnswer(btn,s){
+ if(locked)return;locked=true;clearInterval(timer);
+ const ok=s===current, pts=ok?Math.max(100,Math.round(100+timeLeft*50)):0;
+ if(mode==='solo'){
+   if(ok)soloScore+=pts;
+   btn?.classList.add(ok?'good':'bad');
+   if(!ok)[...$('choices').children].forEach(b=>{if(b.textContent.includes(current.title))b.classList.add('good')});
+   $('score').textContent=soloScore+' pts';
+   $('clipInfo').textContent=(ok?'Correct! ':'Wrong — ')+current.title+' — '+current.artist;
+   setTimeout(()=>{round++;next()},1300);return
+ }
+ if(btn){btn.classList.add('selected');btn.style.borderColor=turn===1?'#7c5cff':'#00d4b8'}
+ if(ok)scores[turn]+=pts;
+ updateScores();
+ if(turn===1){
+   turn=2;$('passCard').classList.remove('hidden');$('passText').textContent='Pass the phone to '+($('p2Name').textContent);
+   $('clipInfo').textContent='Answer locked in';$('choices').innerHTML='';
+   const again=document.createElement('button');again.className='btn teal';again.textContent='I’m Player 2 — play clip';again.onclick=()=>{$('passCard').classList.add('hidden');locked=false;timeLeft=8;$('bar').style.width='100%';renderChoices();play(current);timer=setInterval(()=>{timeLeft--;$('bar').style.width=Math.max(0,timeLeft/8*100)+'%';if(timeLeft<=0){clearInterval(timer);handleAnswer(null)}},1000)};
+   $('choices').appendChild(again);return
+ }
+ [...$('choices').children].forEach(b=>{if(b.textContent.includes(current.title))b.classList.add('good')});
+ $('clipInfo').textContent=current.title+' — '+current.artist;
+ setTimeout(()=>{round++;next()},1500)
+}
+function finish(){stopAudio();
+ if(mode==='solo'){
+   if(soloScore>best){best=soloScore;localStorage.setItem('beatguess_best',best);$('bestPill').textContent='Best: '+best}
+   $('resultLabel').textContent='Solo round complete';$('finalScore').textContent=soloScore;
+   $('resultText').textContent=soloScore>=800?'Excellent ear! 🔥':soloScore>=500?'Nice round! 🎧':'Keep playing to improve your score.';
+ }else{
+   const p1=scores[1],p2=scores[2];
+   $('resultLabel').textContent='Quick Match complete';
+   $('finalScore').textContent=p1+' – '+p2;
+   $('resultText').textContent=p1===p2?'It’s a tie! 🤝':(p1>p2?($('p1Name').textContent+' wins! 🏆'):($('p2Name').textContent+' wins! 🏆'));
+ }
+ show('result')}
+function quitGame(){stopAudio();show('home')}
+$('fileInput').addEventListener('change',e=>{[...e.target.files].forEach(f=>{const clean=f.name.replace(/\.[^.]+$/,'');const parts=clean.split(/\s+-\s+/);custom.push({title:(parts[1]||parts[0]).trim(),artist:(parts[1]?parts[0]:'Unknown artist').trim(),url:URL.createObjectURL(f),start:Math.random()*10})});renderSongs();e.target.value=''});
+function renderSongs(){$('songList').innerHTML=custom.length?'':'<p class="note">No custom songs yet.</p>';custom.forEach((s,i)=>{const d=document.createElement('div');d.className='songrow';d.innerHTML=`<div><b>${esc(s.title)}</b><span>${esc(s.artist)}</span></div><button class="x">✕</button>`;d.querySelector('.x').onclick=()=>{custom.splice(i,1);renderSongs()};$('songList').appendChild(d)})}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+</script>
+</body>
+</html>
