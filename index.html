@@ -18,7 +18,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:10px;ma
 h1{font-size:26px;line-height:1.15;margin:6px 0 8px}
 p{color:var(--muted);line-height:1.5;margin:0 0 16px}
 button{font:inherit;border:0;cursor:pointer}
-.btn{width:100%;padding:15px 16px;border-radius:16px;background:var(--card2);color:var(--text);font-weight:700;font-size:16px;border:1px solid #ffffff14;transition:.15s;text-align:left}
+.btn{width:100%;padding:14px 16px;border-radius:16px;background:var(--card2);color:var(--text);font-weight:700;font-size:16px;border:1px solid #ffffff14;transition:.15s;text-align:left}
 .btn:active{transform:scale(.985)}
 .btn.primary{background:linear-gradient(135deg,var(--accent),#5a3ee8);box-shadow:0 10px 25px #7c5cff44;text-align:center}
 .btn.teal{background:linear-gradient(135deg,#00b89b,#00907d);box-shadow:0 10px 25px #00d4b844;text-align:center}
@@ -27,10 +27,10 @@ button{font:inherit;border:0;cursor:pointer}
 .btn small{display:block;color:var(--muted);font-weight:600;font-size:12px;margin-top:3px}
 .row{display:grid;gap:10px;margin-top:14px}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-weight:700;gap:8px}
-.timer{height:8px;background:#ffffff14;border-radius:99px;overflow:hidden;margin-bottom:16px}
+.timer{height:8px;background:#ffffff14;border-radius:99px;overflow:hidden;margin-bottom:14px}
 .timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width 1s linear}
-.disc{width:112px;height:112px;border-radius:50%;margin:4px auto 12px;background:conic-gradient(from 0deg,#2b2e55,#121426,#2b2e55,#121426,#2b2e55);display:grid;place-items:center;position:relative;animation:spin 4s linear infinite}
-.disc::after{content:"";width:32px;height:32px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px #0f1020}
+.disc{width:104px;height:104px;border-radius:50%;margin:2px auto 10px;background:conic-gradient(from 0deg,#2b2e55,#121426,#2b2e55,#121426,#2b2e55);display:grid;place-items:center;position:relative;animation:spin 4s linear infinite}
+.disc::after{content:"";width:30px;height:30px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px #0f1020}
 .disc.paused{animation-play-state:paused}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hidden{display:none!important}
@@ -39,10 +39,12 @@ button{font:inherit;border:0;cursor:pointer}
 .label{color:var(--muted);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 input,select{width:100%;padding:12px;border-radius:14px;border:1px solid #ffffff18;background:#101223;color:var(--text);font:inherit;margin-bottom:10px}
 input::placeholder{color:#7d81a5}
-.songrow{display:flex;gap:10px;align-items:center;background:var(--card2);padding:10px;border-radius:14px;margin-bottom:8px}
+.songrow{display:flex;gap:10px;align-items:center;background:var(--card2);padding:9px;border-radius:14px;margin-bottom:8px}
+.songrow img{width:44px;height:44px;border-radius:9px;object-fit:cover;background:#222546}
 .songrow b{display:block;font-size:14px}
 .songrow span{color:var(--muted);font-size:12px}
-.songrow .x{margin-left:auto;background:#ffffff10;color:var(--muted);width:30px;height:30px;border-radius:9px}
+.songrow .x,.songrow .add{margin-left:auto;background:#ffffff10;color:var(--muted);width:34px;height:34px;border-radius:10px;font-weight:800}
+.songrow .add{background:#00d4b826;color:#b8fff2}
 .note{font-size:12px;color:var(--muted);margin-top:12px}
 .badge{display:inline-block;background:#7c5cff22;color:#c9bcff;padding:4px 9px;border-radius:99px;font-size:12px;font-weight:700;margin-bottom:10px}
 .turn{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
@@ -61,6 +63,8 @@ input::placeholder{color:#7d81a5}
 .segment{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0 12px}
 .segment button{padding:11px 6px;border-radius:13px;background:var(--card2);color:var(--muted);font-weight:800;border:1px solid #ffffff12}
 .segment button.active{background:#00d4b826;color:#b8fff2;border-color:#00d4b866}
+.searchrow{display:grid;grid-template-columns:1fr auto;gap:8px}
+.searchrow button{padding:12px 16px;border-radius:14px;background:var(--accent);color:white;font-weight:800}
 </style>
 </head>
 <body>
@@ -70,7 +74,7 @@ input::placeholder{color:#7d81a5}
 <section id="home" class="card">
   <div class="badge">iOS-style • No install</div>
   <h1>Guess the song from a music fragment</h1>
-  <p>Choose decades and genres, pick a clip length, then play solo or in two-player Quick Match.</p>
+  <p>Build a pack from official 30-second Apple Music previews, choose decades and genres, then play solo or in two-player Quick Match.</p>
   <div class="label">Decades</div>
   <div class="chips" id="decadeChips"></div>
   <div class="label">Genres</div>
@@ -82,7 +86,7 @@ input::placeholder{color:#7d81a5}
   <button class="btn primary" onclick="startGame('solo')">▶ Solo quick game</button>
   <div class="row">
     <button class="btn teal" onclick="startGame('duo')">👥 Two-player Quick Match<span>Pass-and-play on one device</span></button>
-    <button class="btn" onclick="show('library')">🎵 My song pack<span>Add files or 30-second URLs</span></button>
+    <button class="btn" onclick="show('library')">🎵 My song pack<span>Apple Music, files & URLs</span></button>
     <button class="btn" onclick="show('help')">ℹ️ How it works</button>
   </div>
 </section>
@@ -114,7 +118,11 @@ input::placeholder{color:#7d81a5}
 
 <section id="library" class="card hidden">
   <h1>My song pack</h1>
-  <p>Add audio files or direct links to 30-second fragments. Files stay in this browser; URLs are loaded only when played.</p>
+  <p>Search Apple Music’s iTunes catalogue and add official 30-second previews, upload files, or add direct audio URLs.</p>
+  <div class="label">Import from Apple Music</div>
+  <div class="searchrow"><input id="amSearch" placeholder="Search artist or song"><button onclick="searchAppleMusic()">🔍</button></div>
+  <div id="amResults" style="margin:10px 0 16px"></div>
+  <div class="label">Add audio file</div>
   <input type="file" id="fileInput" accept="audio/*" multiple>
   <div class="label" style="margin-top:12px">Add a 30-second fragment by URL</div>
   <input id="urlTitle" placeholder="Song title">
@@ -127,47 +135,37 @@ input::placeholder{color:#7d81a5}
   <button class="btn teal" onclick="addUrlSong()">➕ Add URL fragment</button>
   <div id="songList" style="margin-top:14px"></div>
   <div class="row"><button class="btn primary" onclick="startGame('solo')">▶ Solo with my pack</button><button class="btn teal" onclick="startGame('duo')">👥 Quick Match with my pack</button><button class="btn" onclick="show('home')">🏠 Home</button></div>
-  <div class="note">Uploaded files without a decade/genre match every filter. Name files like <b>Artist - Title.mp3</b> for automatic details. Use only music you have the right to use.</div>
+  <div class="note">Apple Music previews are official 30-second AAC/M4A fragments from Apple’s iTunes Search API. Availability varies by song and country. The game needs at least four imported songs.</div>
 </section>
 
 <section id="help" class="card hidden">
   <h1>How it works</h1>
-  <p><b>Categories:</b> tap one or more decades and genres. A song must match every selected category type; leave a category untouched to include all songs.</p>
-  <p><b>Clip length:</b> choose 5, 10, 15, or 30 seconds. Audio fragments begin at a random point.</p>
+  <p><b>Apple Music import:</b> search for a song, then tap ➕ to add its official 30-second preview. The app fills in title, artist, artwork, genre and release decade where available. The built-in dummy songs have been removed.</p>
+  <p><b>Categories:</b> tap decades and genres to filter the quiz. A song must match every selected category type.</p>
+  <p><b>Clip length:</b> choose 5, 10, 15, or 30 seconds. Apple previews are 30 seconds; imported previews play from a random point for your chosen length.</p>
   <p><b>Two-player Quick Match:</b> Player 1 hears the fragment and chooses, then passes the phone. Player 2 hears the same fragment and chooses independently.</p>
-  <p>Only add music you own, have permission to use, or that is royalty-free. Do not publish copyrighted commercial recordings in a public repository.</p>
   <button class="btn" onclick="show('home')">🏠 Back</button>
 </section>
 </div>
 
 <script>
-const demo=[
- {title:"Neon Skyline",artist:"BeatGuess",decade:"80s",genre:"Pop",notes:[[440,.25],[523,.25],[659,.25],[784,.5],[659,.25],[523,.5]]},
- {title:"Midnight Drive",artist:"BeatGuess",decade:"80s",genre:"Dance",notes:[[392,.3],[466,.3],[587,.3],[466,.3],[392,.6],[349,.6]]},
- {title:"Summer Circuit",artist:"BeatGuess",decade:"90s",genre:"Dance",notes:[[523,.2],[587,.2],[659,.4],[587,.2],[523,.4],[440,.6]]},
- {title:"Glass Rain",artist:"BeatGuess",decade:"90s",genre:"Rock",notes:[[659,.2],[587,.2],[523,.2],[494,.4],[440,.4],[392,.7]]},
- {title:"Pixel Parade",artist:"BeatGuess",decade:"00s",genre:"Pop",notes:[[330,.2],[392,.2],[494,.2],[587,.4],[494,.2],[392,.6]]},
- {title:"Aurora Rush",artist:"BeatGuess",decade:"00s",genre:"Dance",notes:[[587,.25],[698,.25],[880,.5],[784,.25],[698,.5],[587,.7]]},
- {title:"Low Orbit",artist:"BeatGuess",decade:"10s",genre:"K-pop",notes:[[294,.35],[370,.35],[440,.35],[370,.35],[294,.7],[247,.7]]},
- {title:"Candy Static",artist:"BeatGuess",decade:"Today",genre:"K-pop",notes:[[494,.2],[523,.2],[587,.2],[659,.4],[587,.2],[523,.6]]}
-];
 const decades=['80s','90s','00s','10s','Today'],genres=['Pop','Rock','Dance','K-pop','Hip-hop'];
-let custom=[],queue=[],round=0,mode='solo',turn=1,scores={1:0,2:0},soloScore=0,best=+localStorage.getItem('beatguess_best')||0,current=null,audio=null,timer=null,timeLeft=30,clipDur=+(localStorage.getItem('beatguess_clip')||30),locked=false,selDecades=new Set(),selGenres=new Set();
+let custom=[],queue=[],round=0,mode='solo',turn=1,scores={1:0,2:0},soloScore=0,best=+localStorage.getItem('beatguess_best')||0,current=null,audio=null,timer=null,timeLeft=30,clipDur=+(localStorage.getItem('beatguess_clip')||30),locked=false,selDecades=new Set(),selGenres=new Set(),amResults=[];
 const $=id=>document.getElementById(id);
 $('bestPill').textContent='Best: '+best;
 function show(id){['home','game','result','library','help'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden');if(id!=='game')stopAudio()}
 function makeChips(container,items,set){container.innerHTML='';items.forEach(v=>{const b=document.createElement('button');b.className='chip';b.textContent=v;b.onclick=()=>{set.has(v)?set.delete(v):set.add(v);b.classList.toggle('active',set.has(v))};container.appendChild(b)})}
 makeChips($('decadeChips'),decades,selDecades);makeChips($('genreChips'),genres,selGenres);
-function filteredPool(){let p=[...custom,...demo];
+function filteredPool(){let p=[...custom];
  if(selDecades.size)p=p.filter(s=>!s.decade||selDecades.has(s.decade));
  if(selGenres.size)p=p.filter(s=>!s.genre||selGenres.has(s.genre));
- return p.length?p:[...custom,...demo]}
+ return p}
 function shuffled(a){return [...a].sort(()=>Math.random()-.5)}
 document.querySelectorAll('#clipSelector button').forEach(b=>{
  if(+b.dataset.sec===clipDur){document.querySelectorAll('#clipSelector button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
  b.onclick=()=>{clipDur=+b.dataset.sec;localStorage.setItem('beatguess_clip',clipDur);document.querySelectorAll('#clipSelector button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
 });
-function startGame(m){mode=m||'solo';const base=filteredPool();if(base.length<4){alert('Add more songs or remove some filters—need at least 4 matching songs.');return}
+function startGame(m){mode=m||'solo';const base=filteredPool();if(base.length<4){alert('Your song pack needs at least 4 matching songs. Import Apple Music previews or add more songs.');return}
  queue=shuffled(base).slice(0,Math.min(10,base.length));round=0;soloScore=0;scores={1:0,2:0};turn=1;
  $('soloScoreWrap').classList.toggle('hidden',mode!=='solo');$('duoScoreWrap').classList.toggle('hidden',mode!=='duo');$('turnBar').classList.toggle('hidden',mode!=='duo');
  $('modeLabel').textContent=mode==='duo'?'Quick Match':'Solo';updateScores();show('game');next()}
@@ -189,15 +187,13 @@ function renderChoices(){
  window.choices.forEach(o=>{const b=document.createElement('button');b.className='btn';b.innerHTML=`<b>${esc(o.title)}</b><small>${esc(o.artist)}</small>`;b.onclick=()=>handleAnswer(b,o);$('choices').appendChild(b)})
 }
 function play(s){stopAudio();
- if(s.url){audio=new Audio();audio.preload='auto';audio.src=s.url;
-  audio.addEventListener('loadedmetadata',()=>{const maxStart=Math.max(0,(audio.duration||30)-clipDur);audio.currentTime=Math.min(s.start??Math.random()*maxStart,maxStart);audio.play().catch(()=>{$('clipInfo').textContent='Could not play this audio URL'})},{once:true});
-  audio.addEventListener('error',()=>{$('clipInfo').textContent='Audio failed to load'});
- } else playTones(s.notes);
+ if(!s.url){return}
+ audio=new Audio();audio.preload='auto';audio.src=s.url;audio.crossOrigin='anonymous';
+ audio.addEventListener('loadedmetadata',()=>{const maxStart=Math.max(0,(audio.duration||s.duration||30)-clipDur);audio.currentTime=Math.min(s.start??Math.random()*maxStart,maxStart);audio.play().catch(()=>{$('clipInfo').textContent='Could not play this audio fragment'})},{once:true});
+ audio.addEventListener('error',()=>{$('clipInfo').textContent='Audio failed to load'});
  $('disc').classList.remove('paused')}
 function replay(){if(current)play(current)}
-function stopAudio(){if(audio){audio.pause();audio=null}if(window.__osc){try{window.__osc.stop()}catch(e){};window.__osc=null}if(timer)clearInterval(timer);$('disc')?.classList.add('paused')}
-function playTones(notes){const ac=new (window.AudioContext||window.webkitAudioContext)();const g=ac.createGain();g.gain.value=.16;g.connect(ac.destination);let t=ac.currentTime+.08;const osc=ac.createOscillator();osc.type='triangle';osc.connect(g);osc.start();window.__osc=osc;let remaining=clipDur;
- while(remaining>0){for(const [f,d] of notes){if(remaining<=0)break;osc.frequency.setValueAtTime(f,t);t+=d;remaining-=d}}osc.stop(t+.2)}
+function stopAudio(){if(audio){audio.pause();audio=null}if(timer)clearInterval(timer);$('disc')?.classList.add('paused')}
 function handleAnswer(btn,s){
  if(locked)return;locked=true;clearInterval(timer);
  const ok=s===current,pts=ok?Math.max(100,Math.round(100+timeLeft*(300/clipDur))):0;
@@ -221,12 +217,37 @@ function finish(){stopAudio();
   $('resultText').textContent=p1===p2?'It’s a tie! 🤝':(p1>p2?($('p1Name').textContent+' wins! 🏆'):($('p2Name').textContent+' wins! 🏆'));}
  show('result')}
 function quitGame(){stopAudio();show('home')}
+function mapGenre(g){if(!g)return '';g=g.toLowerCase();if(g.includes('k-pop')||g.includes('kpop'))return 'K-pop';if(g.includes('hip-hop')||g.includes('rap'))return 'Hip-hop';if(g.includes('dance')||g.includes('electronic')||g.includes('house'))return 'Dance';if(g.includes('rock')||g.includes('metal')||g.includes('alternative'))return 'Rock';if(g.includes('pop'))return 'Pop';return ''}
+function mapDecade(date){if(!date)return '';const y=new Date(date).getFullYear();if(!y)return '';if(y<1990)return '80s';if(y<2000)return '90s';if(y<2010)return '00s';if(y<2020)return '10s';return 'Today'}
+function searchAppleMusic(){
+ const term=$('amSearch').value.trim();if(!term)return;
+ $('amResults').innerHTML='<p class="note">Searching Apple Music…</p>';
+ const cb='amCallback_'+Date.now();
+ window[cb]=data=>{
+  delete window[cb];document.getElementById(cb)?.remove();
+  amResults=(data.results||[]).filter(r=>r.kind==='song'&&r.previewUrl);
+  if(!amResults.length){$('amResults').innerHTML='<p class="note">No playable 30-second previews found. Try another search.</p>';return}
+  $('amResults').innerHTML='';
+  amResults.forEach((r,i)=>{const d=document.createElement('div');d.className='songrow';
+   d.innerHTML=`<img src="${esc((r.artworkUrl100||'').replace('100x100','200x200'))}" alt=""><div><b>${esc(r.trackName)}</b><span>${esc(r.artistName)} • ${esc(r.primaryGenreName||'')}</span></div><button class="add">➕</button>`;
+   d.querySelector('.add').onclick=()=>addAppleMusic(i);$('amResults').appendChild(d)})
+ };
+ const s=document.createElement('script');s.id=cb;
+ s.src='https://itunes.apple.com/search?term='+encodeURIComponent(term)+'&media=music&entity=song&limit=20&callback='+cb;
+ s.onerror=()=>{$('amResults').innerHTML='<p class="note">Apple Music search is unavailable right now. Try again later.</p>'};
+ document.body.appendChild(s);
+}
+function addAppleMusic(i){const r=amResults[i];if(!r)return;
+ custom.push({title:r.trackName,artist:r.artistName,decade:mapDecade(r.releaseDate),genre:mapGenre(r.primaryGenreName),url:r.previewUrl,start:null,artwork:r.artworkUrl100,appleId:r.trackId});
+ renderSongs();$('amResults').innerHTML='<p class="note">Added “'+esc(r.trackName)+'” to your pack.</p>'}
 $('fileInput').addEventListener('change',e=>{[...e.target.files].forEach(f=>{const clean=f.name.replace(/\.[^.]+$/,'');const parts=clean.split(/\s+-\s+/);custom.push({title:(parts[1]||parts[0]).trim(),artist:(parts[1]?parts[0]:'Unknown artist').trim(),url:URL.createObjectURL(f),start:null})});renderSongs();e.target.value=''});
 function addUrlSong(){const url=$('urlInput').value.trim(),title=$('urlTitle').value.trim(),artist=$('urlArtist').value.trim(),decade=$('urlDecade').value,genre=$('urlGenre').value;
  if(!url.startsWith('http')){alert('Paste a direct audio URL beginning with https://');return}
  if(!title){alert('Enter the song title');return}
  custom.push({title,artist:artist||'Unknown artist',decade,genre,url,start:null});$('urlTitle').value='';$('urlArtist').value='';$('urlInput').value='';renderSongs()}
-function renderSongs(){$('songList').innerHTML=custom.length?'':'<p class="note">No custom songs yet.</p>';custom.forEach((s,i)=>{const d=document.createElement('div');d.className='songrow';d.innerHTML=`<div><b>${esc(s.title)}</b><span>${esc(s.artist)} • ${esc(s.decade||'Any decade')} • ${esc(s.genre||'Any genre')}</span></div><button class="x">✕</button>`;d.querySelector('.x').onclick=()=>{custom.splice(i,1);renderSongs()};$('songList').appendChild(d)})}
+function renderSongs(){$('songList').innerHTML=custom.length?'':'<p class="note">No songs yet. Import at least four Apple Music previews to play.</p>';custom.forEach((s,i)=>{const d=document.createElement('div');d.className='songrow';
+ d.innerHTML=`${s.artwork?`<img src="${esc(s.artwork)}" alt="">`:''}<div><b>${esc(s.title)}</b><span>${esc(s.artist)} • ${esc(s.decade||'Any decade')} • ${esc(s.genre||'Any genre')}</span></div><button class="x">✕</button>`;
+ d.querySelector('.x').onclick=()=>{custom.splice(i,1);renderSongs()};$('songList').appendChild(d)})}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 </script>
 </body>
