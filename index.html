@@ -16,7 +16,6 @@ header{display:flex;align-items:center;justify-content:space-between;gap:10px;ma
 .pill{background:var(--card);border:1px solid #ffffff14;color:var(--muted);padding:7px 11px;border-radius:999px;font-size:13px;font-weight:600}
 .card{background:linear-gradient(180deg,#1b1d33,#151728);border:1px solid #ffffff12;border-radius:22px;padding:20px;box-shadow:0 18px 50px #0007}
 h1{font-size:27px;line-height:1.15;margin:6px 0 8px}
-h2{font-size:20px;margin:4px 0 10px}
 p{color:var(--muted);line-height:1.5;margin:0 0 16px}
 button{font:inherit;border:0;cursor:pointer}
 .btn{width:100%;padding:15px 16px;border-radius:16px;background:var(--card2);color:var(--text);font-weight:700;font-size:16px;border:1px solid #ffffff14;transition:.15s;text-align:left}
@@ -29,7 +28,7 @@ button{font:inherit;border:0;cursor:pointer}
 .row{display:grid;gap:10px;margin-top:14px}
 .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-weight:700;gap:8px}
 .timer{height:8px;background:#ffffff14;border-radius:99px;overflow:hidden;margin-bottom:16px}
-.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .95s linear}
+.timer i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width 1s linear}
 .disc{width:118px;height:118px;border-radius:50%;margin:6px auto 14px;background:conic-gradient(from 0deg,#2b2e55,#121426,#2b2e55,#121426,#2b2e55);display:grid;place-items:center;position:relative;animation:spin 4s linear infinite}
 .disc::after{content:"";width:34px;height:34px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px #0f1020}
 .disc.paused{animation-play-state:paused}
@@ -56,6 +55,9 @@ input::placeholder{color:#7d81a5}
 .vs .side span{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .vs .mid{font-weight:900;color:var(--muted)}
 .passcard{background:#ffffff08;border:1px dashed #ffffff25;border-radius:16px;padding:16px;text-align:center;margin-bottom:12px}
+.segment{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 4px}
+.segment button{padding:11px 6px;border-radius:13px;background:var(--card2);color:var(--muted);font-weight:800;border:1px solid #ffffff12}
+.segment button.active{background:#7c5cff33;color:#d9ceff;border-color:#7c5cff66}
 </style>
 </head>
 <body>
@@ -64,12 +66,16 @@ input::placeholder{color:#7d81a5}
 
 <section id="home" class="card">
   <div class="badge">iOS-style • No install</div>
-  <h1>Guess the song from a short clip</h1>
-  <p>Play solo, or challenge someone with pass-and-play Quick Match. Both players hear the same clip and choose separately.</p>
-  <button class="btn primary" onclick="startGame('solo')">▶ Solo quick game</button>
+  <h1>Guess the song from a music fragment</h1>
+  <p>Play solo or challenge someone with pass-and-play Quick Match. Choose a clip length up to 30 seconds; each round starts at a random point in the track.</p>
+  <div class="label">Clip length</div>
+  <div class="segment" id="clipSelector">
+    <button data-sec="5">5s</button><button data-sec="10">10s</button><button data-sec="15">15s</button><button data-sec="30" class="active">30s</button>
+  </div>
+  <button class="btn primary" onclick="startGame('solo')" style="margin-top:12px">▶ Solo quick game</button>
   <div class="row">
     <button class="btn teal" onclick="startGame('duo')">👥 Two-player Quick Match<span>Pass-and-play on one device</span></button>
-    <button class="btn" onclick="show('library')">🎵 My song pack<span>Add MP3/M4A/WAV files</span></button>
+    <button class="btn" onclick="show('library')">🎵 My song pack<span>Add audio files or 30-second URLs</span></button>
     <button class="btn" onclick="show('help')">ℹ️ How it works</button>
   </div>
 </section>
@@ -101,18 +107,24 @@ input::placeholder{color:#7d81a5}
 
 <section id="library" class="card hidden">
   <h1>My song pack</h1>
-  <p>Add audio files from your device. They stay in this browser; nothing is uploaded. Use only music you have the right to use.</p>
+  <p>Add audio files from your device, or add direct links to 30-second audio fragments. Files stay in this browser; URLs are loaded only when played.</p>
   <input type="file" id="fileInput" accept="audio/*" multiple>
-  <div id="songList"></div>
+  <div class="label" style="margin-top:14px">Add a 30-second fragment by URL</div>
+  <input id="urlTitle" placeholder="Song title">
+  <input id="urlArtist" placeholder="Artist">
+  <input id="urlInput" placeholder="https://example.com/song-30s.mp3">
+  <button class="btn teal" onclick="addUrlSong()">➕ Add URL fragment</button>
+  <div id="songList" style="margin-top:14px"></div>
   <div class="row"><button class="btn primary" onclick="startGame('solo')">▶ Solo with my pack</button><button class="btn teal" onclick="startGame('duo')">👥 Quick Match with my pack</button><button class="btn" onclick="show('home')">🏠 Home</button></div>
-  <div class="note">Tip: name files like <b>Artist - Title.mp3</b> and the app fills in the details automatically.</div>
+  <div class="note">Name uploaded files like <b>Artist - Title.mp3</b> for automatic details. Use only fragments you own, have permission to use, or that are royalty-free.</div>
 </section>
 
 <section id="help" class="card hidden">
   <h1>How it works</h1>
-  <p><b>Solo:</b> each round plays a clip for up to 8 seconds. Faster correct answers earn more points.</p>
-  <p><b>Two-player Quick Match:</b> Player 1 hears the clip and chooses, then the phone is passed to Player 2, who hears the same clip and chooses independently. Correct answers score points; the higher total wins.</p>
-  <p>The built-in pack uses short original melodies, so it is safe to publish and share. For real songs, add audio you own or royalty-free tracks; do not upload copyrighted commercial music to a public website.</p>
+  <p><b>Clip length:</b> choose 5, 10, 15, or 30 seconds. Audio fragments play from a randomly chosen starting point, so repeated rounds do not always begin at the same moment.</p>
+  <p><b>Solo:</b> faster correct answers earn more points.</p>
+  <p><b>Two-player Quick Match:</b> Player 1 hears the fragment and chooses, then passes the phone. Player 2 hears the same fragment and chooses independently. Highest total wins.</p>
+  <p><b>Adding real music:</b> upload audio files or paste a direct link to an MP3/M4A/WAV fragment. Browsers cannot always play every file format; MP3 and M4A/AAC are the most reliable. Only use music you have the right to publish or play.</p>
   <button class="btn" onclick="show('home')">🏠 Back</button>
 </section>
 </div>
@@ -128,43 +140,55 @@ const demo=[
  {title:"Low Orbit",artist:"BeatGuess",notes:[[294,.35],[370,.35],[440,.35],[370,.35],[294,.7],[247,.7]]},
  {title:"Candy Static",artist:"BeatGuess",notes:[[494,.2],[523,.2],[587,.2],[659,.4],[587,.2],[523,.6]]}
 ];
-let custom=[],queue=[],round=0,mode='solo',turn=1,scores={1:0,2:0},soloScore=0,best=+localStorage.getItem('beatguess_best')||0,current=null,audio=null,timer=null,timeLeft=8,locked=false;
+let custom=[],queue=[],round=0,mode='solo',turn=1,scores={1:0,2:0},soloScore=0,best=+localStorage.getItem('beatguess_best')||0,current=null,audio=null,timer=null,timeLeft=30,clipDur=+(localStorage.getItem('beatguess_clip')||30),locked=false;
 const $=id=>document.getElementById(id);
 $('bestPill').textContent='Best: '+best;
 function show(id){['home','game','result','library','help'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden');if(id!=='game')stopAudio()}
 function pool(){return custom.length?custom:demo}
 function shuffled(a){return [...a].sort(()=>Math.random()-.5)}
+document.querySelectorAll('#clipSelector button').forEach(b=>{
+ if(+b.dataset.sec===clipDur){document.querySelectorAll('#clipSelector button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+ b.onclick=()=>{clipDur=+b.dataset.sec;localStorage.setItem('beatguess_clip',clipDur);document.querySelectorAll('#clipSelector button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+});
 function startGame(m){mode=m||'solo';queue=shuffled(pool()).slice(0,Math.min(10,pool().length));round=0;soloScore=0;scores={1:0,2:0};turn=1;
  $('soloScoreWrap').classList.toggle('hidden',mode!=='solo');$('duoScoreWrap').classList.toggle('hidden',mode!=='duo');$('turnBar').classList.toggle('hidden',mode!=='duo');
  $('modeLabel').textContent=mode==='duo'?'Quick Match':'Solo';updateScores();show('game');next()}
 function updateScores(){if(mode==='solo'){$('score').textContent=soloScore+' pts'}else{$('p1Score').textContent=scores[1];$('p2Score').textContent=scores[2];$('turn1').className=turn===1?'active1':'';$('turn2').className=turn===2?'active2':''}}
 function next(){
  if(round>=queue.length){finish();return}
- locked=false;timeLeft=8;turn=1;current=queue[round];
+ locked=false;timeLeft=clipDur;turn=1;current=queue[round];
  $('roundLabel').textContent='Round '+(round+1)+'/'+queue.length;
- $('clipInfo').textContent='Listen…';$('bar').style.width='100%';$('passCard').classList.add('hidden');
+ $('clipInfo').textContent='Listen…';$('bar').style.width='100%';$('bar').style.transitionDuration='1s';$('passCard').classList.add('hidden');
  updateScores();
  const others=shuffled(pool().filter(s=>s!==current)).slice(0,3);
  window.choices=[...others,current];
  renderChoices();
  play(current);
  if(timer)clearInterval(timer);
- timer=setInterval(()=>{timeLeft--;$('bar').style.width=Math.max(0,timeLeft/8*100)+'%';if(timeLeft<=0){clearInterval(timer);handleAnswer(null)}},1000)
+ timer=setInterval(()=>{timeLeft--;$('bar').style.width=Math.max(0,timeLeft/clipDur*100)+'%';if(timeLeft<=0){clearInterval(timer);handleAnswer(null)}},1000)
 }
 function renderChoices(){
  $('choices').innerHTML='';
  window.choices.forEach(o=>{const b=document.createElement('button');b.className='btn';b.innerHTML=`<b>${esc(o.title)}</b><small>${esc(o.artist)}</small>`;b.onclick=()=>handleAnswer(b,o);$('choices').appendChild(b)})
 }
 function play(s){stopAudio();
- if(s.url){audio=new Audio(s.url);audio.currentTime=Math.min(s.start||0,Math.max(0,(audio.duration||30)-8));audio.play().catch(()=>{})}
- else playTones(s.notes);
+ if(s.url){
+   audio=new Audio();audio.preload='auto';audio.src=s.url;
+   audio.addEventListener('loadedmetadata',()=>{
+     const maxStart=Math.max(0,(audio.duration||s.duration||30)-clipDur);
+     audio.currentTime=Math.min(s.start??Math.random()*maxStart,maxStart);
+     audio.play().catch(()=>{$('clipInfo').textContent='Could not play this audio URL'});
+   },{once:true});
+   audio.addEventListener('error',()=>{$('clipInfo').textContent='Audio failed to load'});
+ } else playTones(s.notes);
  $('disc').classList.remove('paused')}
 function replay(){if(current)play(current)}
 function stopAudio(){if(audio){audio.pause();audio=null}if(window.__osc){try{window.__osc.stop()}catch(e){};window.__osc=null}if(timer)clearInterval(timer);$('disc')?.classList.add('paused')}
-function playTones(notes){const ac=new (window.AudioContext||window.webkitAudioContext)();const g=ac.createGain();g.gain.value=.16;g.connect(ac.destination);let t=ac.currentTime+.08;const osc=ac.createOscillator();osc.type='triangle';osc.connect(g);osc.start();window.__osc=osc;notes.forEach(([f,d])=>{osc.frequency.setValueAtTime(f,t);t+=d});osc.stop(t+.2)}
+function playTones(notes){const ac=new (window.AudioContext||window.webkitAudioContext)();const g=ac.createGain();g.gain.value=.16;g.connect(ac.destination);let t=ac.currentTime+.08;const osc=ac.createOscillator();osc.type='triangle';osc.connect(g);osc.start();window.__osc=osc;let remaining=clipDur;
+ while(remaining>0){for(const [f,d] of notes){if(remaining<=0)break;osc.frequency.setValueAtTime(f,t);t+=d;remaining-=d}}osc.stop(t+.2)}
 function handleAnswer(btn,s){
  if(locked)return;locked=true;clearInterval(timer);
- const ok=s===current, pts=ok?Math.max(100,Math.round(100+timeLeft*50)):0;
+ const ok=s===current, pts=ok?Math.max(100,Math.round(100+timeLeft*(300/clipDur))):0;
  if(mode==='solo'){
    if(ok)soloScore+=pts;
    btn?.classList.add(ok?'good':'bad');
@@ -179,7 +203,7 @@ function handleAnswer(btn,s){
  if(turn===1){
    turn=2;$('passCard').classList.remove('hidden');$('passText').textContent='Pass the phone to '+($('p2Name').textContent);
    $('clipInfo').textContent='Answer locked in';$('choices').innerHTML='';
-   const again=document.createElement('button');again.className='btn teal';again.textContent='I’m Player 2 — play clip';again.onclick=()=>{$('passCard').classList.add('hidden');locked=false;timeLeft=8;$('bar').style.width='100%';renderChoices();play(current);timer=setInterval(()=>{timeLeft--;$('bar').style.width=Math.max(0,timeLeft/8*100)+'%';if(timeLeft<=0){clearInterval(timer);handleAnswer(null)}},1000)};
+   const again=document.createElement('button');again.className='btn teal';again.textContent='I’m Player 2 — play fragment';again.onclick=()=>{$('passCard').classList.add('hidden');locked=false;timeLeft=clipDur;$('bar').style.width='100%';renderChoices();play(current);timer=setInterval(()=>{timeLeft--;$('bar').style.width=Math.max(0,timeLeft/clipDur*100)+'%';if(timeLeft<=0){clearInterval(timer);handleAnswer(null)}},1000)};
    $('choices').appendChild(again);return
  }
  [...$('choices').children].forEach(b=>{if(b.textContent.includes(current.title))b.classList.add('good')});
@@ -199,8 +223,12 @@ function finish(){stopAudio();
  }
  show('result')}
 function quitGame(){stopAudio();show('home')}
-$('fileInput').addEventListener('change',e=>{[...e.target.files].forEach(f=>{const clean=f.name.replace(/\.[^.]+$/,'');const parts=clean.split(/\s+-\s+/);custom.push({title:(parts[1]||parts[0]).trim(),artist:(parts[1]?parts[0]:'Unknown artist').trim(),url:URL.createObjectURL(f),start:Math.random()*10})});renderSongs();e.target.value=''});
-function renderSongs(){$('songList').innerHTML=custom.length?'':'<p class="note">No custom songs yet.</p>';custom.forEach((s,i)=>{const d=document.createElement('div');d.className='songrow';d.innerHTML=`<div><b>${esc(s.title)}</b><span>${esc(s.artist)}</span></div><button class="x">✕</button>`;d.querySelector('.x').onclick=()=>{custom.splice(i,1);renderSongs()};$('songList').appendChild(d)})}
+$('fileInput').addEventListener('change',e=>{[...e.target.files].forEach(f=>{const clean=f.name.replace(/\.[^.]+$/,'');const parts=clean.split(/\s+-\s+/);custom.push({title:(parts[1]||parts[0]).trim(),artist:(parts[1]?parts[0]:'Unknown artist').trim(),url:URL.createObjectURL(f),start:null})});renderSongs();e.target.value=''});
+function addUrlSong(){const url=$('urlInput').value.trim(),title=$('urlTitle').value.trim(),artist=$('urlArtist').value.trim();
+ if(!url.startsWith('http')){alert('Paste a direct audio URL beginning with https://');return}
+ if(!title){alert('Enter the song title');return}
+ custom.push({title,artist:artist||'Unknown artist',url,start:null});$('urlTitle').value='';$('urlArtist').value='';$('urlInput').value='';renderSongs()}
+function renderSongs(){$('songList').innerHTML=custom.length?'':'<p class="note">No custom songs yet.</p>';custom.forEach((s,i)=>{const d=document.createElement('div');d.className='songrow';d.innerHTML=`<div><b>${esc(s.title)}</b><span>${esc(s.artist)}${s.url.startsWith('blob:')?' • uploaded file':' • URL'}</span></div><button class="x">✕</button>`;d.querySelector('.x').onclick=()=>{custom.splice(i,1);renderSongs()};$('songList').appendChild(d)})}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 </script>
 </body>
