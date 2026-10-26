@@ -1,0 +1,55 @@
+name: Import historical chart catalogue
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/build_chart_catalogue.py'
+      - '.github/workflows/chart-catalogue.yml'
+  schedule:
+    - cron: '15 8 * * 1'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: chart-catalogue
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/build_chart_catalogue.py
+      - name: Commit generated chart history
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/chart-songs.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Populate historical artist-title chart catalogue'
+            git push
+          fi
+      - name: Prepare site
+        run: |
+          mkdir -p _site
+          cp index.html app.js chart-filter.js _site/
+          cp -R data _site/data
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: import
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy generated catalogue and site
+        id: deployment
+        uses: actions/deploy-pages@v4
