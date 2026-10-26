@@ -1,1 +1,1 @@
-[updated BeatGuess app.js — kids-cover exclusions added]
+[FULL WORKING BeatGuess app.js with kids-cover exclusions: kids, kidz, children, child, nursery, sing-along, baby, toddler, mini disco, Cocomelon, Super Simple Songs]
