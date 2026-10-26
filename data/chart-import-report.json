@@ -1,0 +1,97 @@
+[
+  {
+    "name": "Nederlandse Top 40",
+    "url": "https://www.top40.nl/top40",
+    "status": "partial-with-errors",
+    "errors": [
+      {
+        "url": "https://www.top40.nl/top40/2026/week-44",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "https://www.top40.nl/top40/1970/week-2",
+        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
+      },
+      {
+        "url": "https://www.top40.nl/top40/1980/week-2",
+        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
+      }
+    ],
+    "discoveredWeeks": 3226,
+    "discoveryComplete": true,
+    "chartCount": 1,
+    "coverageStart": "1965-01-02",
+    "coverageEnd": "1965-01-02"
+  },
+  {
+    "name": "Official UK Singles Chart",
+    "url": "https://www.officialcharts.com/charts/singles-chart/",
+    "status": "partial-with-errors",
+    "errors": [
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600101/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19700102/7501/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600108/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600115/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600122/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
+      }
+    ],
+    "discoveredWeeks": 3487,
+    "discoveryComplete": true,
+    "chartCount": 5,
+    "coverageStart": "1979-12-30",
+    "coverageEnd": "2026-10-23"
+  },
+  {
+    "name": "Official Dance Singles Chart",
+    "url": "https://www.officialcharts.com/charts/dance-singles-chart/",
+    "status": "partial",
+    "errors": [],
+    "discoveredWeeks": 1687,
+    "discoveryComplete": true,
+    "chartCount": 40,
+    "coverageStart": "1994-07-03",
+    "coverageEnd": "2026-10-23"
+  },
+  {
+    "name": "Music Charts Archive",
+    "url": "https://musicchartsarchive.com/",
+    "status": "blocked-or-parser-error",
+    "errors": [
+      {
+        "url": "https://musicchartsarchive.com/singles-chart/1976-09-04",
+        "error": "Cannot establish actual chart date from page"
+      },
+      {
+        "url": "https://musicchartsarchive.com/singles-chart/2026-10-24",
+        "error": "Cannot establish actual chart date from page"
+      },
+      {
+        "url": "https://musicchartsarchive.com/singles-chart/1980-01-05",
+        "error": "Cannot establish actual chart date from page"
+      }
+    ],
+    "discoveredWeeks": 164,
+    "discoveryComplete": false,
+    "chartCount": 0,
+    "coverageStart": null,
+    "coverageEnd": null
+  }
+]
