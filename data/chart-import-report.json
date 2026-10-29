@@ -54,7 +54,7 @@
     "errors": [],
     "discoveredWeeks": 1687,
     "discoveryComplete": true,
-    "chartCount": 118,
+    "chartCount": 158,
     "coverageStart": "1994-07-03",
     "coverageEnd": "2026-10-23"
   },
@@ -76,7 +76,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 478,
+    "discoveredWeeks": 635,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
