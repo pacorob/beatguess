@@ -33,15 +33,11 @@
         "error": "Chart rows missing or failed validation; no data imported"
       },
       {
-        "url": "https://www.officialcharts.com/charts/singles-chart/19700102/7501/",
-        "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
-        "error": "Page returned a different chart period"
+        "url": "https://www.officialcharts.com/charts/singles-chart/20261030/7501/",
+        "error": "HTTP Error 403: Forbidden"
       }
     ],
-    "discoveredWeeks": 3487,
+    "discoveredWeeks": 3488,
     "discoveryComplete": true,
     "chartCount": 5,
     "coverageStart": "1979-12-30",
@@ -54,9 +50,10 @@
     "errors": [],
     "discoveredWeeks": 1687,
     "discoveryComplete": true,
-    "chartCount": 158,
+    "chartCount": 198,
     "coverageStart": "1994-07-03",
-    "coverageEnd": "2026-10-23"
+    "coverageEnd": "2026-10-23",
+    "positionConflicts": 1
   },
   {
     "name": "Music Charts Archive",
@@ -76,7 +73,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 635,
+    "discoveredWeeks": 791,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
