@@ -63,7 +63,7 @@
     ],
     "discoveredWeeks": 1688,
     "discoveryComplete": true,
-    "chartCount": 389,
+    "chartCount": 427,
     "coverageStart": "1994-07-03",
     "coverageEnd": "2026-10-30",
     "positionConflicts": 1
@@ -86,7 +86,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 1574,
+    "discoveredWeeks": 1731,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
