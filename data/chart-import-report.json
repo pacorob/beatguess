@@ -33,15 +33,11 @@
         "error": "Chart rows missing or failed validation; no data imported"
       },
       {
-        "url": "https://www.officialcharts.com/charts/singles-chart/19700102/7501/",
-        "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
-        "error": "Page returned a different chart period"
+        "url": "https://www.officialcharts.com/charts/singles-chart/20261106/7501/",
+        "error": "HTTP Error 403: Forbidden"
       }
     ],
-    "discoveredWeeks": 3488,
+    "discoveredWeeks": 3489,
     "discoveryComplete": true,
     "chartCount": 6,
     "coverageStart": "1979-12-30",
@@ -63,7 +59,7 @@
     ],
     "discoveredWeeks": 1688,
     "discoveryComplete": true,
-    "chartCount": 427,
+    "chartCount": 465,
     "coverageStart": "1994-07-03",
     "coverageEnd": "2026-10-30",
     "positionConflicts": 1
@@ -86,7 +82,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 1731,
+    "discoveredWeeks": 1887,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
