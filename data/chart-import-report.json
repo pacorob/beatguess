@@ -6,7 +6,7 @@
     "errors": [
       {
         "url": "https://www.top40.nl/top40/2026/week-45",
-        "error": "HTTP Error 404: Not Found"
+        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
       },
       {
         "url": "https://www.top40.nl/top40/1970/week-2",
@@ -33,15 +33,23 @@
         "error": "Chart rows missing or failed validation; no data imported"
       },
       {
-        "url": "https://www.officialcharts.com/charts/singles-chart/20261106/7501/",
-        "error": "HTTP Error 403: Forbidden"
+        "url": "https://www.officialcharts.com/charts/singles-chart/19700102/7501/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600108/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
       }
     ],
     "discoveredWeeks": 3489,
     "discoveryComplete": true,
-    "chartCount": 6,
+    "chartCount": 7,
     "coverageStart": "1979-12-30",
-    "coverageEnd": "2026-10-30"
+    "coverageEnd": "2026-11-06"
   },
   {
     "name": "Official Dance Singles Chart",
@@ -59,7 +67,7 @@
     ],
     "discoveredWeeks": 1688,
     "discoveryComplete": true,
-    "chartCount": 465,
+    "chartCount": 503,
     "coverageStart": "1994-07-03",
     "coverageEnd": "2026-10-30",
     "positionConflicts": 1
@@ -74,7 +82,7 @@
         "error": "Cannot establish actual chart date from page"
       },
       {
-        "url": "https://musicchartsarchive.com/singles-chart/2026-10-31",
+        "url": "https://musicchartsarchive.com/singles-chart/2026-11-07",
         "error": "Cannot establish actual chart date from page"
       },
       {
@@ -82,7 +90,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 1887,
+    "discoveredWeeks": 2045,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
