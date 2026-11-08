@@ -39,10 +39,6 @@
       {
         "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
         "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/singles-chart/19600108/7501/",
-        "error": "Chart rows missing or failed validation; no data imported"
       }
     ],
     "discoveredWeeks": 3489,
@@ -65,11 +61,11 @@
         "error": "Chart rows missing or failed validation; no data imported"
       }
     ],
-    "discoveredWeeks": 1688,
+    "discoveredWeeks": 1689,
     "discoveryComplete": true,
-    "chartCount": 503,
+    "chartCount": 541,
     "coverageStart": "1994-07-03",
-    "coverageEnd": "2026-10-30",
+    "coverageEnd": "2026-11-06",
     "positionConflicts": 1
   },
   {
@@ -90,7 +86,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 2045,
+    "discoveredWeeks": 2202,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
