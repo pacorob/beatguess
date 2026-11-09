@@ -5,8 +5,8 @@
     "status": "partial-with-errors",
     "errors": [
       {
-        "url": "https://www.top40.nl/top40/2026/week-45",
-        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
+        "url": "https://www.top40.nl/top40/2026/week-46",
+        "error": "HTTP Error 404: Not Found"
       },
       {
         "url": "https://www.top40.nl/top40/1970/week-2",
@@ -17,7 +17,7 @@
         "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
       }
     ],
-    "discoveredWeeks": 3227,
+    "discoveredWeeks": 3228,
     "discoveryComplete": true,
     "chartCount": 1,
     "coverageStart": "1965-01-02",
@@ -63,10 +63,10 @@
     ],
     "discoveredWeeks": 1689,
     "discoveryComplete": true,
-    "chartCount": 541,
+    "chartCount": 578,
     "coverageStart": "1994-07-03",
     "coverageEnd": "2026-11-06",
-    "positionConflicts": 1
+    "positionConflicts": 2
   },
   {
     "name": "Music Charts Archive",
@@ -86,7 +86,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 2202,
+    "discoveredWeeks": 2359,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
