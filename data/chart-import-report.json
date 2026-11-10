@@ -59,11 +59,23 @@
       {
         "url": "https://www.officialcharts.com/charts/dance-singles-chart/19991219/104/",
         "error": "Chart rows missing or failed validation; no data imported"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/dance-singles-chart/20050911/104/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/dance-singles-chart/20050918/104/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/dance-singles-chart/20050925/104/",
+        "error": "Page returned a different chart period"
       }
     ],
     "discoveredWeeks": 1689,
     "discoveryComplete": true,
-    "chartCount": 578,
+    "chartCount": 580,
     "coverageStart": "1994-07-03",
     "coverageEnd": "2026-11-06",
     "positionConflicts": 2
@@ -86,7 +98,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 2359,
+    "discoveredWeeks": 2516,
     "discoveryComplete": false,
     "chartCount": 0,
     "coverageStart": null,
