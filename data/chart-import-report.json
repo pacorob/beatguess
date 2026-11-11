@@ -63,14 +63,6 @@
       {
         "url": "https://www.officialcharts.com/charts/dance-singles-chart/20050911/104/",
         "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/dance-singles-chart/20050918/104/",
-        "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/dance-singles-chart/20050925/104/",
-        "error": "Page returned a different chart period"
       }
     ],
     "discoveredWeeks": 1689,
@@ -98,8 +90,8 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 2516,
-    "discoveryComplete": false,
+    "discoveredWeeks": 2620,
+    "discoveryComplete": true,
     "chartCount": 0,
     "coverageStart": null,
     "coverageEnd": null
