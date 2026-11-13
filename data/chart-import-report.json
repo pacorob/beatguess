@@ -39,9 +39,13 @@
       {
         "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
         "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600108/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
       }
     ],
-    "discoveredWeeks": 3489,
+    "discoveredWeeks": 3490,
     "discoveryComplete": true,
     "chartCount": 7,
     "coverageStart": "1979-12-30",
