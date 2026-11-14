@@ -6,7 +6,7 @@
     "errors": [
       {
         "url": "https://www.top40.nl/top40/2026/week-46",
-        "error": "HTTP Error 404: Not Found"
+        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
       },
       {
         "url": "https://www.top40.nl/top40/1970/week-2",
@@ -39,10 +39,6 @@
       {
         "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
         "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/singles-chart/19600108/7501/",
-        "error": "Chart rows missing or failed validation; no data imported"
       }
     ],
     "discoveredWeeks": 3490,
@@ -86,7 +82,7 @@
         "error": "Cannot establish actual chart date from page"
       },
       {
-        "url": "https://musicchartsarchive.com/singles-chart/2026-11-07",
+        "url": "https://musicchartsarchive.com/singles-chart/2026-11-14",
         "error": "Cannot establish actual chart date from page"
       },
       {
@@ -94,7 +90,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 2620,
+    "discoveredWeeks": 2621,
     "discoveryComplete": true,
     "chartCount": 0,
     "coverageStart": null,
