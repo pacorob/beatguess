@@ -65,11 +65,11 @@
         "error": "Page returned a different chart period"
       }
     ],
-    "discoveredWeeks": 1689,
+    "discoveredWeeks": 1690,
     "discoveryComplete": true,
-    "chartCount": 580,
+    "chartCount": 581,
     "coverageStart": "1994-07-03",
-    "coverageEnd": "2026-11-06",
+    "coverageEnd": "2026-11-13",
     "positionConflicts": 2
   },
   {
