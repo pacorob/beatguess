@@ -5,8 +5,8 @@
     "status": "partial-with-errors",
     "errors": [
       {
-        "url": "https://www.top40.nl/top40/2026/week-46",
-        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
+        "url": "https://www.top40.nl/top40/2026/week-47",
+        "error": "HTTP Error 404: Not Found"
       },
       {
         "url": "https://www.top40.nl/top40/1970/week-2",
@@ -17,7 +17,7 @@
         "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
       }
     ],
-    "discoveredWeeks": 3228,
+    "discoveredWeeks": 3229,
     "discoveryComplete": true,
     "chartCount": 1,
     "coverageStart": "1965-01-02",
