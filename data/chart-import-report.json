@@ -33,15 +33,11 @@
         "error": "Chart rows missing or failed validation; no data imported"
       },
       {
-        "url": "https://www.officialcharts.com/charts/singles-chart/19700102/7501/",
-        "error": "Page returned a different chart period"
-      },
-      {
-        "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
-        "error": "Page returned a different chart period"
+        "url": "https://www.officialcharts.com/charts/singles-chart/20261120/7501/",
+        "error": "HTTP Error 403: Forbidden"
       }
     ],
-    "discoveredWeeks": 3490,
+    "discoveredWeeks": 3491,
     "discoveryComplete": true,
     "chartCount": 7,
     "coverageStart": "1979-12-30",
