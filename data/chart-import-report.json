@@ -6,7 +6,7 @@
     "errors": [
       {
         "url": "https://www.top40.nl/top40/2026/week-47",
-        "error": "HTTP Error 404: Not Found"
+        "error": "Dutch chart did not contain exactly 40 ordered title/artist pairs"
       },
       {
         "url": "https://www.top40.nl/top40/1970/week-2",
@@ -33,15 +33,23 @@
         "error": "Chart rows missing or failed validation; no data imported"
       },
       {
-        "url": "https://www.officialcharts.com/charts/singles-chart/20261120/7501/",
-        "error": "HTTP Error 403: Forbidden"
+        "url": "https://www.officialcharts.com/charts/singles-chart/19700102/7501/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/20100101/7501/",
+        "error": "Page returned a different chart period"
+      },
+      {
+        "url": "https://www.officialcharts.com/charts/singles-chart/19600108/7501/",
+        "error": "Chart rows missing or failed validation; no data imported"
       }
     ],
     "discoveredWeeks": 3491,
     "discoveryComplete": true,
-    "chartCount": 7,
+    "chartCount": 8,
     "coverageStart": "1979-12-30",
-    "coverageEnd": "2026-11-06"
+    "coverageEnd": "2026-11-20"
   },
   {
     "name": "Official Dance Singles Chart",
@@ -78,7 +86,7 @@
         "error": "Cannot establish actual chart date from page"
       },
       {
-        "url": "https://musicchartsarchive.com/singles-chart/2026-11-14",
+        "url": "https://musicchartsarchive.com/singles-chart/2026-11-21",
         "error": "Cannot establish actual chart date from page"
       },
       {
@@ -86,7 +94,7 @@
         "error": "Cannot establish actual chart date from page"
       }
     ],
-    "discoveredWeeks": 2621,
+    "discoveredWeeks": 2622,
     "discoveryComplete": true,
     "chartCount": 0,
     "coverageStart": null,
